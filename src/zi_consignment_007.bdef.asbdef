@@ -1,0 +1,66 @@
+managed with additional save implementation in class zbp_i_consignment_007 unique;
+strict ( 2 );
+with draft;
+define behavior for ZI_CONSIGNMENT_007 alias Consignment
+persistent table zconsignment007
+draft table zconsignment007d
+lock master
+total etag LastChangedAt
+authorization master ( instance )
+etag master LocalLastChangedAt
+{
+  create;
+  update;
+  delete;
+
+  field ( readonly, numbering : managed ) ConsignmentUUID;
+  //field ( readonly ) ConsignmentID;
+  field ( readonly ) CustomerName;
+
+  association _Item {  create ( features : instance, authorization : update ); with draft; }
+
+  draft determine action Prepare;
+  draft action Resume with additional implementation;
+  draft action Edit with additional implementation;
+  draft action Activate with additional implementation optimized;
+  draft action Discard /*with additional implementation*/;
+
+  // Events:
+  determination on_customer_modify on modify { field CustomerID; }
+
+  // Actions:
+  action create_physical_inventory;
+
+  side effects
+  {
+    field CustomerID affects $self;
+  }
+
+}
+
+define behavior for ZI_ITEM_007 alias Item
+persistent table zitem007
+draft table zitem007d
+lock dependent by _Consignment
+authorization dependent by _Consignment
+etag master LocalLastChangedAt
+{
+  update;
+  delete;
+
+  field ( readonly, numbering : managed ) ItemUUID;
+  field ( readonly ) ItemID;
+  field ( readonly ) ConsignmentUUID;
+  field ( readonly ) ProductName;
+
+  association _Consignment { with draft; }
+
+  // Events:
+  determination on_create on modify { field ItemUUID; } // Generate a New Item ID
+  determination on_product_modify on modify { field ProductID; }
+
+  side effects
+  {
+    field ProductID affects $self;
+  }
+}

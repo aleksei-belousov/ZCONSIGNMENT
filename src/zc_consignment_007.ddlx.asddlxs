@@ -1,0 +1,99 @@
+@Metadata.layer: #CORE
+@UI: {
+    headerInfo: { typeName: 'EDI Consigment Stock',
+                  typeNamePlural: 'EDI Consigment Stocks',
+                  title: { type: #STANDARD, label: 'EDI Consigment Stock', value: 'ConsignmentID' } },
+    presentationVariant: [{ sortOrder: [{ by: 'ConsignmentUUID', direction: #ASC }] }] }
+@Search.searchable: true
+
+annotate entity ZC_CONSIGNMENT_007 with 
+{
+
+    @UI.facet: [
+        // EDI Consigment Stock (header) 
+        {
+            id:           'Consigment',
+            purpose:      #STANDARD,
+            type:         #IDENTIFICATION_REFERENCE,
+            label:        'EDI Consigment Stock',
+            position:     10
+        },
+        // Item
+        {
+            hidden:       false,
+            label:        'Item',
+            id:           'ItemID',
+            purpose:      #STANDARD,
+            type:         #LINEITEM_REFERENCE,
+            position:     20,
+            targetElement: '_Item'
+         }
+   ]
+
+    @UI.hidden: true
+    ConsignmentUUID;
+
+
+    @UI: {  lineItem:       [ { position: 10, label: 'ID', cssDefault.width: '150px' } ],
+            identification: [ { position: 10, label: 'ID'  }, 
+                              { type: #FOR_ACTION, dataAction: 'create_physical_inventory',     label: 'Create Physical Inventory',     position: 1 }/*,
+                              { type: #FOR_ACTION, dataAction: 'add_pricat_customers',          label: 'Add Pricat Customers',          position: 2 },
+                              { type: #FOR_ACTION, dataAction: 'add_promotion_customers',       label: 'Add Promotion Customers',       position: 3 },
+                              { type: #FOR_ACTION, dataAction: 'add_products_based_on_filters', label: 'Add Products Based On Filters', position: 4 }*/ ] }
+    @Search.defaultSearchElement: true
+    //@UI.hidden: true
+    ConsignmentID;
+
+    @UI: {  lineItem:       [ { position: 20, label: 'Message ID', cssDefault.width: '150px' } ],
+            identification: [ { position: 20, label: 'Message ID' } ] }
+    @Search.defaultSearchElement: true
+    @UI.hidden: true
+    MessageID;
+
+    @UI: {  lineItem:       [ { position: 30, label: 'Customer ID', cssDefault.width: '150px', type: #WITH_URL, url: 'CustomerURL' } ],
+            identification: [ { position: 30, label: 'Customer ID', type: #WITH_URL, url: 'CustomerURL'  } ] }
+    @Search.defaultSearchElement: true
+    @Consumption.valueHelpDefinition: [ { entity: { name: 'I_Customer', element: 'Customer' } } ] 
+    @EndUserText.label: 'Customer ID'
+    //@UI.hidden: true
+    CustomerID;
+
+    @UI: {  lineItem:       [ { position: 40, label: 'Customer Name', cssDefault.width: '150px' } ],
+            identification: [ { position: 40, label: 'Customer Name' } ] }
+    @Search.defaultSearchElement: true
+    //@UI.hidden: true
+    CustomerName;
+
+    @UI: {  lineItem:       [ { position: 50, label: 'Message Date', cssDefault.width: '150px' } ],
+            identification: [ { position: 50, label: 'Message Date' } ] }
+    @Search.defaultSearchElement: true
+    //@UI.hidden: true
+    MessageDate;
+
+    @UI: {  lineItem:       [ { position: 60, label: 'Status', cssDefault.width: '150px' } ],
+            identification: [ { position: 60, label: 'Status' } ] }
+    @Search.defaultSearchElement: true
+    @Consumption.valueHelpDefinition: [ { entity: { name: 'ZC_STATUS_007', element: 'Status' } } ] 
+    @EndUserText.label: 'Status'
+    //@UI.hidden: true
+    Status;
+
+    @UI.hidden: true
+    CustomerURL;
+
+    @UI.hidden: true
+    CreatedBy;
+
+    @UI.hidden: true
+    CreatedAt;
+
+    @UI.hidden: true
+    LastChangedBy;
+
+    @UI.hidden: true
+    LastChangedAt;
+
+    @UI.hidden: true
+    LocalLastChangedAt;
+
+}

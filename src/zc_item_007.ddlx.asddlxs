@@ -1,0 +1,85 @@
+@Metadata.layer: #CORE
+@UI: {
+    headerInfo: { typeName: 'Item',
+                  typeNamePlural: 'Items',
+                  title: { type: #STANDARD, label: 'Item', value: 'ItemID' } },
+    presentationVariant: [{ sortOrder: [{ by: 'ItemUUID', direction: #ASC }] }] }
+@Search.searchable: true
+
+annotate entity ZC_ITEM_007  with 
+{
+    @UI.facet: [
+        {
+            id:           'Item',
+            purpose:      #STANDARD,
+            type:         #IDENTIFICATION_REFERENCE,
+            label:        'Item',
+            position:     10
+        }
+   ]
+
+    @UI.hidden: true
+    ItemUUID;
+
+    @UI: {  lineItem:       [ { position: 10, label: 'Item ID', cssDefault.width: '150px' } ],
+            identification: [ { position: 10, label: 'Item ID'  } ] }
+    @Search.defaultSearchElement: true
+    //@UI.hidden: true
+    ItemID;
+
+    @UI: {  lineItem:       [ { position: 20, label: 'Consignment UUID', cssDefault.width: '150px' } ],
+            identification: [ { position: 20, label: 'Consignment UUID'  } ] }
+    @UI.hidden: true
+    ConsignmentUUID;
+
+    @UI: {  lineItem:       [ { position: 30, label: 'Product ID', cssDefault.width: '150px', type: #WITH_URL, url: 'ProductURL' } ],
+            identification: [ { position: 30, label: 'Product ID', type: #WITH_URL, url: 'ProductURL'  } ] }
+    @Search.defaultSearchElement: true
+    @Consumption.valueHelpDefinition: [ { entity: { name: 'I_ProductTP_2', element: 'Product' } } ] 
+    @EndUserText.label: 'Product'
+    //@UI.hidden: true
+    ProductID;
+
+    @UI: {  lineItem:       [ { position: 40, label: 'Product Name', cssDefault.width: '150px' } ],
+            identification: [ { position: 40, label: 'Product Name'  } ] }
+    @Search.defaultSearchElement: true
+    //@UI.hidden: true
+    ProductName;
+
+    @UI: {  lineItem:       [ { position: 50, label: 'Quantity', cssDefault.width: '150px' } ],
+            identification: [ { position: 50, label: 'Quantity'  } ] }
+    @Search.defaultSearchElement: true
+    //@UI.hidden: true
+    Quantity;
+
+    @UI: {  lineItem:       [ { position: 60, label: 'Quantity Unit', cssDefault.width: '150px' } ],
+            identification: [ { position: 60, label: 'Quantity Unit'  } ] }
+    @Search.defaultSearchElement: true
+    @UI.hidden: true
+    QuantityUnit;
+
+    @UI: {  lineItem:       [ { position: 70, label: 'No Inventory', cssDefault.width: '100px' } ],
+            identification: [ { position: 70, label: 'No Inventory'  } ] }
+    @Search.defaultSearchElement: true
+    //@UI.hidden: true
+    NoInventory;
+
+    @UI.hidden: true
+    ProductURL;
+
+    @UI.hidden: true
+    CreatedBy;
+
+    @UI.hidden: true
+    CreatedAt;
+
+    @UI.hidden: true
+    LastChangedBy;
+
+    @UI.hidden: true
+    LastChangedAt;
+
+    @UI.hidden: true
+    LocalLastChangedAt;
+
+}

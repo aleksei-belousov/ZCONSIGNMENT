@@ -1,0 +1,4 @@
+@EndUserText.label: 'ZSD_STATUS_007'
+define service ZSD_STATUS_007 {
+  expose ZC_STATUS_007;
+}

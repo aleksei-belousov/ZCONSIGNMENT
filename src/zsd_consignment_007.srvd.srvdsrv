@@ -1,0 +1,5 @@
+@EndUserText.label: 'ZSD_CONSIGNMENT_007'
+define service ZSD_CONSIGNMENT_007 {
+  expose ZC_CONSIGNMENT_007;
+  expose ZC_ITEM_007;
+}

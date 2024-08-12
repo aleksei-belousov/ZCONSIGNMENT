@@ -1,0 +1,42 @@
+@Metadata.layer: #CORE
+@UI: {
+    headerInfo: { typeName: 'Status',
+                  typeNamePlural: 'Statuses',
+                  title: { type: #STANDARD, label: 'Status', value: 'Status' } },
+    presentationVariant: [{ sortOrder: [{ by: 'Status', direction: #ASC }] }] }
+@Search.searchable: true
+annotate entity ZC_STATUS_007  with 
+{
+
+    @UI.facet: [
+        // Status 
+        {
+            id:           'Status',
+            purpose:      #STANDARD,
+            type:         #IDENTIFICATION_REFERENCE,
+            label:        'Status',
+            position:     10
+        }
+   ]
+
+    @UI: {  lineItem:       [ { position: 10, label: 'Status', cssDefault.width: '150px' } ],
+            identification: [ { position: 10, label: 'Ststus'  } ] } 
+    @Search.defaultSearchElement: true
+    //@UI.hidden: true
+    Status;
+
+    @UI.hidden: true
+    Createdby;
+
+    @UI.hidden: true
+    Createdat;
+
+    @UI.hidden: true
+    Lastchangedby;
+
+    @UI.hidden: true
+    Lastchangedat;
+
+    @UI.hidden: true
+    Locallastchangedat;    
+}

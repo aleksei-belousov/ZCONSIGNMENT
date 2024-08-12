@@ -1,0 +1,31 @@
+projection;
+strict ( 2 );
+use draft;
+use side effects;
+
+define behavior for ZC_CONSIGNMENT_007 alias Consignment
+{
+  use create;
+  use update;
+  use delete;
+
+  use association _Item { create; with draft; }
+
+  use action Resume;
+  use action Edit;
+  use action Activate;
+  use action Discard;
+  use action Prepare;
+
+  use action create_physical_inventory;
+
+}
+
+define behavior for ZC_ITEM_007 alias Item
+{
+  use update;
+  use delete;
+
+  use association _Consignment { with draft; }
+
+}
